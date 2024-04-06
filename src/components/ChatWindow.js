@@ -48,21 +48,22 @@ function ChatWindow() {
           ))}
           <div ref={messagesEndRef} />
           <div className="input-area">
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              onKeyPress={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  handleSend(input);
-                  e.preventDefault();
-                }
-              }}
-              rows="3"
-            />
-            <button className="send-button" onClick={handleSend}>
-              Send
-            </button>
+              <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type a message..."
+                  onKeyPress={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                          handleSend(input);
+                          e.preventDefault();
+                      }
+                  }}
+                  rows="3"
+              />
+              <button className="send-button" onClick={() => handleSend(input)}>
+                  Send
+              </button>
+
           </div>
       </div>
 );

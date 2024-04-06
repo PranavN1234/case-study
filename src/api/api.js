@@ -1,11 +1,30 @@
-
 export const getAIMessage = async (userQuery) => {
+    const apiUrl = 'http://localhost:8000/handle-query'; // Replace this with your actual API URL
 
-  const message = 
-    {
-      role: "assistant",
-      content: "Connect your backend here...."
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ question: userQuery }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json(); // Now you can read the response since no-cors mode is not used
+
+        return {
+            role: "assistant",
+            content: data.answer, // Use the actual data from the server response
+        };
+    } catch (error) {
+        console.error("Failed to fetch AI message:", error);
+        return {
+            role: "assistant",
+            content: "Sorry, there was an error processing your request.",
+        };
     }
-
-  return message;
 };
