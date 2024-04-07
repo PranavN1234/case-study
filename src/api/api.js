@@ -1,9 +1,10 @@
 export const getAIMessage = async (userQuery) => {
-    const apiUrl = 'http://localhost:8000/handle-query'; // Replace this with your actual API URL
+    const apiUrl = 'http://localhost:8000/part_query'; // Replace this with your actual API URL
 
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },

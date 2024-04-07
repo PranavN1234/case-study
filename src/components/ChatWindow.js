@@ -7,7 +7,7 @@ function ChatWindow() {
 
   const defaultMessage = [{
     role: "assistant",
-    content: "Hi, how can I help you today?"
+    content: "Welcome to the PartSelect Bot to try and help you with basic queries regarding the Part Select Website (https://www.partselect.com/), Try to include the PartSelect/Manufacturer Number and Name with the Product name to get the best possible result. For more detailed/specific information please go to the website and type your part number"
   }];
 
   const [messages,setMessages] = useState(defaultMessage)
@@ -25,27 +25,43 @@ function ChatWindow() {
 
   const handleSend = async (input) => {
     if (input.trim() !== "") {
-      // Set user message
+      // Add user message
       setMessages(prevMessages => [...prevMessages, { role: "user", content: input }]);
       setInput("");
 
-      // Call API & set assistant message
+      // Add loading message
+      const loadingMessageId = Date.now(); // Unique ID for the loading message
+      // Add loading message
+      setMessages(prevMessages => [...prevMessages, { role: "loading", content: "...", id: loadingMessageId }]);
+
+
+      // Fetch the actual response
       const newMessage = await getAIMessage(input);
-      setMessages(prevMessages => [...prevMessages, newMessage]);
+
+      // Replace loading message with actual response
+      setMessages(prevMessages => prevMessages.map(msg =>
+        msg.id === loadingMessageId ? { ...newMessage, id: undefined } : msg
+      ));
     }
   };
+
 
   return (
       <div className="messages-container">
           {messages.map((message, index) => (
-              <div key={index} className={`${message.role}-message-container`}>
-                  {message.content && (
-                      <div className={`message ${message.role}-message`}>
-                          <div dangerouslySetInnerHTML={{__html: marked(message.content).replace(/<p>|<\/p>/g, "")}}></div>
-                      </div>
-                  )}
-              </div>
+            <div key={index} className={`${message.role}-message-container`}>
+              {message.role === 'loading' ? (
+                <div className="message loading-dots">
+                  <span className="dot">.</span><span className="dot">.</span><span className="dot">.</span>
+                </div>
+              ) : (
+                <div className={`message ${message.role}-message`}>
+                  <div dangerouslySetInnerHTML={{__html: marked(message.content).replace(/<p>|<\/p>/g, "")}}></div>
+                </div>
+              )}
+            </div>
           ))}
+
           <div ref={messagesEndRef} />
           <div className="input-area">
               <input
