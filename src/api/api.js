@@ -1,5 +1,5 @@
 export const getAIMessage = async (userQuery) => {
-    const apiUrl = 'http://localhost:8000/part_query'; // Replace this with your actual API URL
+    const apiUrl = 'https://casestudy-backend.ue.r.appspot.com/part_query'; // Replace this with your actual API URL
 
     try {
         const response = await fetch(apiUrl, {

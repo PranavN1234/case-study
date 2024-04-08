@@ -3,6 +3,9 @@
   "name": "Instalily Case Study",
   "version": "1.0",
   "description": "AI Assistant",
+  "background": {
+    "service_worker": "background.js"
+  },
   "side_panel": {
     "default_path": "index.html"
   },
