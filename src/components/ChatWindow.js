@@ -12,6 +12,7 @@ function ChatWindow() {
 
   const [messages,setMessages] = useState(defaultMessage)
   const [input, setInput] = useState("");
+    const [isSending, setIsSending] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -24,7 +25,9 @@ function ChatWindow() {
   }, [messages]);
 
   const handleSend = async (input) => {
-    if (input.trim() !== "") {
+    if (input.trim() !== "" && !isSending) {
+
+        setIsSending(true);
       // Add user message
       setMessages(prevMessages => [...prevMessages, { role: "user", content: input }]);
       setInput("");
@@ -42,6 +45,8 @@ function ChatWindow() {
       setMessages(prevMessages => prevMessages.map(msg =>
         msg.id === loadingMessageId ? { ...newMessage, id: undefined } : msg
       ));
+
+        setIsSending(false);
     }
   };
 
@@ -76,7 +81,7 @@ function ChatWindow() {
                   }}
                   rows="3"
               />
-              <button className="send-button" onClick={() => handleSend(input)}>
+              <button className="send-button" onClick={() => handleSend(input)} disabled={isSending}>
                   Send
               </button>
 
