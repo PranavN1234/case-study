@@ -3,13 +3,14 @@
   "name": "Instalily Case Study",
   "version": "1.0",
   "description": "AI Assistant",
+  "action": {},
   "background": {
     "service_worker": "background.js"
   },
   "side_panel": {
     "default_path": "index.html"
   },
-  "permissions": ["sidePanel", "tabs", "activeTabs", "scripting"],
+  "permissions": ["sidePanel", "tabs", "activeTab", "scripting"],
   "host_permissions": ["https://*/*", "http://*/*","http://*/*/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"

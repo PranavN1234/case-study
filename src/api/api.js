@@ -1,5 +1,5 @@
 export const getAIMessage = async (userQuery) => {
-    const apiUrl = 'https://casestudy-backend.ue.r.appspot.com/part_query'; // Replace this with your actual API URL
+    const apiUrl = 'https://casestudy-backend.ue.r.appspot.com/part_query';
 
     try {
         const response = await fetch(apiUrl, {
@@ -15,11 +15,11 @@ export const getAIMessage = async (userQuery) => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data = await response.json(); // Now you can read the response since no-cors mode is not used
+        const data = await response.json();
 
         return {
             role: "assistant",
-            content: data.answer, // Use the actual data from the server response
+            content: data.answer,
         };
     } catch (error) {
         console.error("Failed to fetch AI message:", error);
