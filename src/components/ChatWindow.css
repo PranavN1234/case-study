@@ -135,7 +135,7 @@
   animation-delay: 0.4s;
 }
 
-/* Customize your colors here */
+
 .dot {
   color: red; /* First dot color */
   font-size: 40px; /* Larger font size */
@@ -149,5 +149,21 @@
 .dot:nth-child(3) {
   color: blue; /* Third dot color */
 }
+
+.refresh-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 5px;
+  margin-right: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #1b3875;
+}
+
+
+
+
 
 

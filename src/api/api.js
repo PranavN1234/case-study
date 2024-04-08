@@ -29,3 +29,22 @@ export const getAIMessage = async (userQuery) => {
         };
     }
 };
+
+
+export const clearRecentQueries = async () => {
+    const clearQueriesUrl = 'https://casestudy-backend.ue.r.appspot.com/clear_query';
+
+    try {
+        const response = await fetch(clearQueriesUrl, { method: 'GET' });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data.message;
+    } catch (error) {
+        console.error("Failed to clear recent queries:", error);
+        return "Failed to clear recent queries";
+    }
+};

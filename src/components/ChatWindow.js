@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ChatWindow.css";
-import { getAIMessage } from "../api/api";
+import { getAIMessage, clearRecentQueries } from "../api/api";
 import { marked } from "marked";
+import { TbRefresh } from "react-icons/tb";
 
 function ChatWindow() {
 
@@ -12,7 +13,7 @@ function ChatWindow() {
 
   const [messages,setMessages] = useState(defaultMessage)
   const [input, setInput] = useState("");
-    const [isSending, setIsSending] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -28,20 +29,20 @@ function ChatWindow() {
     if (input.trim() !== "" && !isSending) {
 
         setIsSending(true);
-      // Add user message
+
       setMessages(prevMessages => [...prevMessages, { role: "user", content: input }]);
       setInput("");
 
-      // Add loading message
-      const loadingMessageId = Date.now(); // Unique ID for the loading message
-      // Add loading message
+
+      const loadingMessageId = Date.now();
+
       setMessages(prevMessages => [...prevMessages, { role: "loading", content: "...", id: loadingMessageId }]);
 
 
-      // Fetch the actual response
+
       const newMessage = await getAIMessage(input);
 
-      // Replace loading message with actual response
+
       setMessages(prevMessages => prevMessages.map(msg =>
         msg.id === loadingMessageId ? { ...newMessage, id: undefined } : msg
       ));
@@ -50,6 +51,15 @@ function ChatWindow() {
     }
   };
 
+    const handleRefresh = async () => {
+        setInput("");
+
+        setMessages(defaultMessage);
+
+        const message = await clearRecentQueries();  // Call the function to clear recent queries
+        console.log(message);
+
+      };
 
   return (
       <div className="messages-container">
@@ -69,6 +79,7 @@ function ChatWindow() {
 
           <div ref={messagesEndRef} />
           <div className="input-area">
+          <button className="refresh-button" onClick={handleRefresh}><TbRefresh /></button>
               <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
