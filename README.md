@@ -1,3 +1,8 @@
+Frontend sample:
+
+![Screenshot 2024-04-12 150022](https://github.com/PranavN1234/case-study/assets/44135759/f8130b01-fb3c-4c7f-bf97-7a2af0029020)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
